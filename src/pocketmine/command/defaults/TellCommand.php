@@ -33,7 +33,7 @@ class TellCommand extends VanillaCommand{
 			$name,
 			"%pocketmine.command.tell.description",
 			"%commands.message.usage",
-			["w", "msg"]
+			["w", "msg", "text"]
 		);
 		$this->setPermission("pocketmine.command.tell");
 	}
@@ -61,7 +61,12 @@ class TellCommand extends VanillaCommand{
 		if($player instanceof Player){
 			$sender->sendMessage("[{$sender->getName()} -> {$player->getDisplayName()}] " . implode(" ", $args));
 			$name = $sender instanceof Player ? $sender->getDisplayName() : $sender->getName();
+			
+			
 			$player->sendMessage("[$name -> {$player->getName()}] " . implode(" ", $args));
+			$player->sendPopup(TextFormat::YELLOW . "[$name -> {$player->getName()}] " . TextFormat::GRAY . "sent you a message!");
+			
+			
 		}else{
 			$sender->sendMessage(new TranslationContainer("commands.generic.player.notFound"));
 		}
